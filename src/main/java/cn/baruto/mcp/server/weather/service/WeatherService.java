@@ -1,5 +1,6 @@
 package cn.baruto.mcp.server.weather.service;
 
+import cn.baruto.mcp.server.weather.bean.WeatherFunctionRequest;
 import cn.baruto.mcp.server.weather.bean.WeatherFunctionResponse;
 import cn.baruto.mcp.server.weather.properties.WeatherApiProperties;
 import cn.hutool.http.HttpResponse;
@@ -21,7 +22,8 @@ public class WeatherService {
     private WeatherApiProperties weatherApiProperties;
 
     @Tool(description = "获取某个城市的实时天气")
-    public WeatherFunctionResponse getWeather(@ToolParam(description = "城市名称,如果是中文汉字请先转换为汉语拼音,例如北京:beijing") String city) {
+    public WeatherFunctionResponse getWeather(WeatherFunctionRequest request) {
+        String city = request.getCity();
         log.info("开始获取天气，城市：{}",city);
         // 先调用城市搜索接口，查询到该城市的locationId
         String citySearchApiUrl = "https://geoapi.qweather.com/v2/city/lookup";

@@ -9,6 +9,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WeatherFunctionRequest {
     @JsonProperty(required = true, value = "city")
-    @JsonPropertyDescription("城市，例如：北京")
+    @JsonPropertyDescription("城市名称,如果是中文汉字请先转换为汉语拼音,例如北京:beijing")
     private String city;
 }
