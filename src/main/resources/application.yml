@@ -1,0 +1,27 @@
+weather:
+  api:
+    api-key: your-api-key
+spring:
+  application:
+    name: mcp-server-weather
+  ai:
+    mcp:
+      server:
+        name: ${spring.application.name}
+        version: 0.0.1
+
+  main:
+    banner-mode: off
+    web-application-type: none
+
+logging:
+  pattern:
+    console:
+  file:
+    name: D://${spring.application.name}.log
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
