@@ -11,6 +11,7 @@
 1. 下载项目到本地
 2. 打包项目，生成jar包 `mvn clean package -Dmaven.test.skip=true`
 
+## Claude使用方法：
 ```json
 {
   "mcpServers": {
@@ -45,6 +46,22 @@
     </dependency>
 ```
 ```java
+
+    /**
+     * 阿里云的模型
+     *
+     * @return
+     */
+    @Bean
+    public ChatLanguageModel chatLanguageModel() {
+        return OpenAiChatModel.builder()
+                .apiKey(System.getenv("AI_DASHSCOPE_API_KEY"))
+                .modelName("qwen-turbo")
+                .logRequests(true)
+                .logResponses(true)
+                .baseUrl("https://dashscope.aliyuncs.com/compatible-mode/v1")
+                .build();
+    }
     /**
      * 初始化MCP Client
      */
@@ -52,7 +69,12 @@
     public McpClient mcpClientWeather() {
         return new DefaultMcpClient.Builder()
                 .transport(new StdioMcpTransport.Builder()
-                        .command(List.of("java", "-Dspring.ai.mcp.server.stdio=true", "-jar", "mcp-server-weather-0.0.1-SNAPSHOT.jar", "--weather.api.api-key=%s".formatted(System.getenv("HEFENG_WEATHER_API_KEY"))))
+                        .command(List.of(
+                                "java",
+                                "-Dspring.ai.mcp.server.stdio=true", 
+                                "-jar", 
+                                "mcp-server-weather-0.0.1-SNAPSHOT.jar", 
+                                "--weather.api.api-key=%s".formatted(System.getenv("HEFENG_WEATHER_API_KEY"))))
                         .logEvents(true) // only if you want to see the traffic in the log
                         .build())
                 .build();
