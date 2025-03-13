@@ -1,6 +1,6 @@
 weather:
   api:
-    api-key: your-api-key
+    api-key: ${WEATHER_API_KEY:}
 spring:
   application:
     name: mcp-server-weather
@@ -18,7 +18,7 @@ logging:
   pattern:
     console:
   file:
-    name: D://${spring.application.name}.log
+    name: ${spring.application.name}.log
 server:
   servlet:
     encoding:
